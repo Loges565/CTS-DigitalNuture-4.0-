@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap JS Plugins Example</title>
+    <!-- Link to local Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+
+    <div class="container mt-5">
+        <h1 class="text-primary text-center">Bootstrap JavaScript Included</h1>
+        <p class="text-center">Click the button below to see a Bootstrap modal (requires JavaScript).</p>
+
+        <!-- Button to trigger modal -->
+        <button type="button" class="btn btn-success d-block mx-auto" data-bs-toggle="modal" data-bs-target="#myModal">
+            Launch Modal
+        </button>
+
+        <!-- Modal component -->
+        <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Welcome!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                This is a Bootstrap modal triggered using bootstrap.bundle.min.js.
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- Link to local Bootstrap JS bundle -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
