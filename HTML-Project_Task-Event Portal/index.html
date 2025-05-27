@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Community Event Portal</title>
+    <style>
+        /* Internal CSS for general styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+           
+        }
+      
+        nav{
+            background-color: #a03535;
+            padding: 13px;
+        }
+        nav a{
+            color:white;
+            margin-right: 15px;
+            text-decoration: none;
+            padding: 14px 14px;
+        }
+        nav a:hover{
+            text-decoration: underline;
+            background-color: rgb(220, 8, 8);
+        }
+        section{
+            padding:20px;
+        }
+        #welcomeBanner {
+            background-color: #007BFF;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .highlight{
+            background-color: yellow;
+            font-weight: bold;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .eventimg{
+            border: 2px solid gray;
+           width: 500px;
+           height: 400px;
+           transition: 0.5s ease;
+
+        }
+        .eventimg:hover{
+            transform: scale(1.1);
+        }
+       .eventvideo{
+          transition: 0.5s;
+       }
+       .eventvideo:hover{
+        transform: scale(1.1);
+       }
+        form{
+            max-width: 500px;
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        input, textarea, select, button{
+            width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+        }
+        button {
+    background-color: #007BFF;
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="#home">Home</a> |
+        <a href="#events">Events</a> |
+        <a href="#contact">Contact</a> |
+        <a href="help.html" target="_blank">Help</a>
+    </nav>
+
+    <!-- Main -->
+    <main>
+        <section id="home">
+            <div id="welcomeBanner">
+                <h1>Welcome to the Community Portal!</h1>
+                <p>Enjoy our events. <span style="color: red; font-weight: bold;">Special Offer Today!</span></p>
+            </div>
+        </section>
+        <section id="video">
+            <h2 style="color: chartreuse;font-family: 'Times New Roman', Times, serif;";>Our Event Promo</h2>
+            <h4>Check Out </h4>
+           <center> <video id="promo" width="600"  controls oncanplay="vedioready()" class="eventvideo">
+                <source src="vedio.mp4" type="video/mp4">
+                <p id="videoStatus" style="color: green; font-weight: bold;"></p>
+            </video></center>
+        </section>
+
+        <section id="events">
+            
+             <h2>Upcoming <span class="highlight">Events</span></h2>
+            
+             <caption>Our Last Events</caption>
+             <table>
+                <tr>
+                    <td><img src="image.png" title="volunteering" class="eventimg"></td>
+                    <td><img src="Art_in_the_Park.jpeg" title="Art in park" class="eventimg"></td>
+                     <td><img src="marathon.jpeg" title="Marathon" class="eventimg"></td>
+                </tr>
+                 <tr>
+                    <td><img src="throw.jpeg" title="throw a block" class="eventimg"></td>
+                    <td><img src="host.jpeg" title="Host a Nature Walk" class="eventimg"></td>
+                     <td><img src="cambridge.jpeg" title="Cambridge Walk" class="eventimg"></td>
+                </tr>
+             </table>
+        </section>
+
+        <section id="contact">
+            <!-- Contact form will be added later -->
+             <h2>Contact <span class="highlight">Us & Register HERE <i class="fa fa-file"></i></span></h2>
+             <form id="eventForm" onsubmit="showConfirmation(event)">
+                <label>Name:</label>
+                <input type="text" placeholder="Your Name" name="name" id="name" required autofocus><br>
+                   <label>Email:</label>
+                <input type="email" placeholder="Your Email" name="email" id="email" required><br>
+                   <label>Event Date:</label>
+                <input type="date" placeholder="Choose" name="eventdate" id="eventdate" required><br>
+                     <label for="eventType">Event Type:</label><br>
+    <select id="eventType" name="eventType" required>
+        <option value="">-- Select an Event --</option>
+        <option value="music">Music Festival</option>
+        <option value="art">Art Exhibition</option>
+        <option value="tech">Tech Talk</option>
+    </select><br>
+    <p><strong>Fee:<span id="fee">--</span></strong></p>
+    <label for="phone">Phone:</label>
+    <input type="text" id="phone" name="phone" onblur="validatephone()" placeholder="Enter 10 digit phone number">
+
+    <label for="message">Message:</label><br>
+    <textarea id="message" name="message" rows="4" cols="40" placeholder="Any additional info..."></textarea><br><br>
+<button onclick="findNearbyEvents()">Find Nearby Events</button>
+<p id="locationOutput"></p>
+
+    <button type="submit">Register</button><br><br>
+  <button onclick="clearPreferences()">Clear Preferences</button>
+    <output id="confirmation"></output>
+   
+
+             </form>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Local City Council</p>
+    </footer>
+    <script>
+function showConfirmation(event) {
+    event.preventDefault(); // prevent actual submission
+    const name = document.getElementById("name").value;
+    document.getElementById("confirmation").textContent = `Thank you, ${name}! Your registration is received.`;
+}
+function validatephone(){
+    const phone=document.getElementById("phone").value;
+    if(!/^\d{10}$/.test(phone)){
+        alert("Enter a valid Phone number");
+    }
+}
+document.getElementById("eventType").onchange= function(){
+     const feeDisplay = document.getElementById("fee");
+     let fee="--";
+     let event=this.value;
+     if(event=="music") fee=1500;
+      else if(event=="art") fee=1000;
+       else if(event=="tech") fee=2000;
+       feeDisplay.textContent=fee;
+
+};
+
+function vedioReady() {
+    document.getElementById("videoStatus").textContent = "🎬 Video ready to play!";
+}
+let formModified = false;
+
+// When the user types in any form field, we set `formModified = true`
+document.querySelectorAll("#eventForm input, #eventForm textarea, #eventForm select").forEach(el => {
+    el.addEventListener("change", () => formModified = true);
+});
+
+// Ask for confirmation when user leaves the page
+window.onbeforeunload = function () {
+    if (formModified) {
+        return "You have unsaved changes. Are you sure you want to leave?";
+    }
+};
+document.getElementById("eventType").addEventListener("change", function () {
+    localStorage.setItem("preferredEvent", this.value);
+});
+window.addEventListener("load", function () {
+    const saved = localStorage.getItem("preferredEvent");
+    if (saved) {
+        document.getElementById("eventType").value = saved;
+        // Optional: update fee if Task 6 logic is there
+        document.getElementById("eventType").dispatchEvent(new Event("change"));
+    }
+});
+function clearPreferences() {
+    localStorage.removeItem("preferredEvent");
+    sessionStorage.clear();
+    alert("Preferences cleared.");
+}
+
+
+function findNearbyEvents() {
+    const output = document.getElementById("locationOutput");
+
+    if (!navigator.geolocation) {
+        output.textContent = "Geolocation is not supported by your browser.";
+        return;
+    }
+
+    output.textContent = "Locating...";
+
+    navigator.geolocation.getCurrentPosition(
+        // Success callback
+        (position) => {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            output.textContent = `Your Location: Latitude ${lat.toFixed(4)}, Longitude ${lon.toFixed(4)}`;
+        },
+
+        // Error callback
+        (error) => {
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    output.textContent = "Permission denied. Cannot fetch your location.";
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    output.textContent = "Location info unavailable.";
+                    break;
+                case error.TIMEOUT:
+                    output.textContent = "Location request timed out.";
+                    break;
+                default:
+                    output.textContent = "An unknown error occurred.";
+            }
+        },
+
+        // Options
+        {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 0
+        }
+    );
+}
+</script>
+
+
+</body>
+</html>
